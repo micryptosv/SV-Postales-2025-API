@@ -1,0 +1,55 @@
+openapi: 3.1.0
+info:
+title: SV Postales 2025 API
+version: 1.0.0
+description: API pública para selects dependientes (Departamento → Municipio → Distrito → Código Postal). Creado por Francisco Alas.
+servers:
+- url: https://sv-postales-2025-api.vercel.app
+paths:
+/health:
+get:
+summary: Estado de la API
+responses:
+'200': { description: OK }
+/v1/departamentos:
+get:
+summary: Lista de departamentos
+responses:
+'200':
+description: OK
+content:
+application/json:
+schema:
+type: array
+items: { type: string }
+/v1/municipios:
+get:
+summary: Municipios por departamento
+parameters:
+- in: query
+name: departamento
+required: true
+schema: { type: string }
+responses:
+'200':
+description: OK
+content:
+application/json:
+schema:
+type: array
+items: { type: string }
+'400': { description: Falta departamento }
+'404': { description: Departamento no encontrado }
+/v1/distritos:
+get:
+summary: Distritos por departamento y municipio
+parameters:
+- in: query
+name: departamento
+required: true
+schema: { type: string }
+- in: query
+name: municipio
+required: true
+schema: { type: string }
+'200': { description: OK }
