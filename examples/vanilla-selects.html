@@ -1,73 +1,66 @@
 <!doctype html>
 <html lang="es">
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Selects dependientes SV</title>
-<body>
-<h1>SV Postales 2025 API</h1>
-<label>Departamento
-<select id="depto"></select>
-</label>
-<label>Municipio
-<select id="muni"></select>
-</label>
-<label>Distrito
-<select id="dist"></select>
-</label>
-<label>Código Postal
-<input id="cp" readonly />
-</label>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selects dependientes SV</title>
+  <body>
+    <h1>SV Postales 2025 API</h1>
+    <label>Departamento
+      <select id="depto"></select>
+    </label>
+    <label>Municipio
+      <select id="muni"></select>
+    </label>
+    <label>Distrito
+      <select id="dist"></select>
+    </label>
+    <label>Código Postal
+      <input id="cp" readonly />
+    </label>
 
+    <script>
+      const API = 'https://sv-postales-2025-api.vercel.app';
+      const $d = document.getElementById('depto');
+      const $m = document.getElementById('muni');
+      const $t = document.getElementById('dist');
+      const $cp = document.getElementById('cp');
 
-<script>
-const API = 'https://sv-postales-2025-api.vercel.app';
-const $d = document.getElementById('depto');
-const $m = document.getElementById('muni');
-const $t = document.getElementById('dist');
-const $cp = document.getElementById('cp');
+      async function loadDeptos() {
+        const res = await fetch(`${API}/v1/departamentos`);
+        const list = await res.json();
+        $d.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
+      }
 
+      async function loadMunicipios() {
+        $m.innerHTML = '<option>—</option>'; $t.innerHTML = '<option>—</option>'; $cp.value = '';
+        if (!$d.value) return;
+        const res = await fetch(`${API}/v1/municipios?departamento=${encodeURIComponent($d.value)}`);
+        const list = await res.json();
+        $m.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
+      }
 
-async function loadDeptos() {
-const res = await fetch(`${API}/v1/departamentos`);
-const list = await res.json();
-$d.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
-}
+      async function loadDistritos() {
+        $t.innerHTML = '<option>—</option>'; $cp.value = '';
+        if (!$d.value || !$m.value) return;
+        const res = await fetch(`${API}/v1/distritos?departamento=${encodeURIComponent($d.value)}&municipio=${encodeURIComponent($m.value)}`);
+        const list = await res.json();
+        $t.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
+      }
 
+      async function loadCP() {
+        $cp.value = '';
+        if (!$d.value || !$m.value || !$t.value) return;
+        const url = `${API}/v1/postal?departamento=${encodeURIComponent($d.value)}&municipio=${encodeURIComponent($m.value)}&distrito=${encodeURIComponent($t.value)}`;
+        const res = await fetch(url);
+        const obj = await res.json();
+        $cp.value = obj.codigo_postal || '';
+      }
 
-async function loadMunicipios() {
-$m.innerHTML = '<option>—</option>'; $t.innerHTML = '<option>—</option>'; $cp.value = '';
-if (!$d.value) return;
-const res = await fetch(`${API}/v1/municipios?departamento=${encodeURIComponent($d.value)}`);
-const list = await res.json();
-$m.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
-}
+      $d.addEventListener('change', loadMunicipios);
+      $m.addEventListener('change', loadDistritos);
+      $t.addEventListener('change', loadCP);
 
-
-async function loadDistritos() {
-$t.innerHTML = '<option>—</option>'; $cp.value = '';
-if (!$d.value || !$m.value) return;
-const res = await fetch(`${API}/v1/distritos?departamento=${encodeURIComponent($d.value)}&municipio=${encodeURIComponent($m.value)}`);
-const list = await res.json();
-$t.innerHTML = '<option value="">—</option>' + list.map(x => `<option>${x}</option>`).join('');
-}
-
-
-async function loadCP() {
-$cp.value = '';
-if (!$d.value || !$m.value || !$t.value) return;
-const url = `${API}/v1/postal?departamento=${encodeURIComponent($d.value)}&municipio=${encodeURIComponent($m.value)}&distrito=${encodeURIComponent($t.value)}`;
-const res = await fetch(url);
-const obj = await res.json();
-$cp.value = obj.codigo_postal || '';
-}
-
-
-$d.addEventListener('change', loadMunicipios);
-$m.addEventListener('change', loadDistritos);
-$t.addEventListener('change', loadCP);
-
-
-loadDeptos();
-</script>
-</body>
+      loadDeptos();
+    </script>
+  </body>
 </html>
