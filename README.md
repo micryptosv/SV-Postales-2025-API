@@ -1,4 +1,4 @@
-# 🇸🇻 SV Postales 2025 API
+# SV Postales 2025 API
 
 API pública gratuita de **direcciones dependientes de El Salvador (2025)**  
 (Departamento → Municipio → Distrito → Código Postal).  
@@ -6,9 +6,9 @@ API pública gratuita de **direcciones dependientes de El Salvador (2025)**
 
 ---
 
-## 🚀 Uso rápido (sin instalación)
+##  Uso rápido:
 
-Solo copia y pega en tu navegador o Postman:
+Solo copia y pega en tu navegador o Postman o integralo en tu proyecto directamente:
 
 ```bash
 # Verificar estado de la API
