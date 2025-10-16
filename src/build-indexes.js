@@ -1,4 +1,4 @@
-export function buildIndexes(rows) {
+function buildIndexes(rows) {
   const departamentos = new Set();
   const muniByDepto = new Map(); // depto -> Set(municipios)
   const distByDeptoMuni = new Map(); // `${depto}|${muni}` -> Set(distritos)
@@ -26,3 +26,4 @@ export function buildIndexes(rows) {
     postalByTriple
   };
 }
+module.exports = { buildIndexes };
