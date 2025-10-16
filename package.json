@@ -4,11 +4,8 @@
   "description": "API pública para direcciones de El Salvador con selects dependientes (Departamento → Municipio → Distrito → Código Postal). Datos actualizados 2025.",
   "author": "Francisco Alas",
   "license": "MIT",
-  "type": "module",
   "scripts": {
-    "build:data": "node scripts/build-json.js",
-    "dev": "node src/server.js",
-    "start": "NODE_ENV=production node src/server.js"
+    "start": "node src/server.js"
   },
   "keywords": [
     "El Salvador",
