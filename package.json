@@ -1,25 +1,32 @@
 {
-"name": "sv-postales-2025-api",
-"version": "1.0.0",
-"description": "API pública para direcciones de El Salvador con selects dependientes (Departamento → Municipio → Distrito → Código Postal). Datos actualizados 2025.",
-"author": "Francisco Alas",
-"license": "MIT",
-"type": "module",
-"scripts": {
-"build:data": "node scripts/build-json.js",
-"dev": "node src/server.js",
-"start": "NODE_ENV=production node src/server.js"
-},
-"keywords": ["El Salvador", "direcciones", "código postal", "municipios", "distritos", "2025"],
-"repository": {
-"type": "git",
-"url": "git+https://github.com/micryptosv/sv-postales-2025-api.git"
-},
-"dependencies": {
-"cors": "^2.8.5",
-"csv-parse": "^5.5.6",
-"express": "^4.19.2",
-"express-rate-limit": "^7.4.0",
-"morgan": "^1.10.0"
-}
+  "name": "sv-postales-2025-api",
+  "version": "1.0.0",
+  "description": "API pública para direcciones de El Salvador con selects dependientes (Departamento → Municipio → Distrito → Código Postal). Datos actualizados 2025.",
+  "author": "Francisco Alas",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build:data": "node scripts/build-json.js",
+    "dev": "node src/server.js",
+    "start": "NODE_ENV=production node src/server.js"
+  },
+  "keywords": [
+    "El Salvador",
+    "direcciones",
+    "código postal",
+    "municipios",
+    "distritos",
+    "2025"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micryptosv/sv-postales-2025-api.git"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parse": "^5.5.6",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "morgan": "^1.10.0"
+  }
 }
