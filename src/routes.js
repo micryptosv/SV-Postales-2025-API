@@ -1,6 +1,5 @@
-import express from 'express';
-
-export function buildRouter(indexes) {
+const express = require('express');
+function buildRouter(indexes) {
   const router = express.Router();
 
   router.get('/health', (req, res) => {
@@ -61,3 +60,4 @@ export function buildRouter(indexes) {
 
   return router;
 }
+module.exports = { buildRouter };
